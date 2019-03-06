@@ -1,0 +1,25 @@
+#spring:
+#   profiles:
+#        active:dev
+
+spring:
+  datasource:
+   url: jdbc:mysql://localhost:3306/miaosha?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+   username: root
+   password: root
+   driver-class-name: com.mysql.cj.jdbc.Driver
+   type: com.alibaba.druid.pool.DruidDataSource
+
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.ltc.miaosha.domain
+
+redis:
+  host: 47.106.74.64
+  port: 6379
+  timeout: 3
+  password: yourpassword
+  poolMaxTotal: 10
+  poolMaxIdle: 10
+  poolMaxWait: 3
