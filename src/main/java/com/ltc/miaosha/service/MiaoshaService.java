@@ -24,5 +24,13 @@ public class MiaoshaService {
 		//order_info maiosha_order
 		return orderService.createOrder(user, goods);
 	}
+
+	@Transactional
+	public OrderInfo normalBuy(MiaoshaUser user, GoodsVo goods ,Integer buyCount) {
+		//减库存 下订单 写入普通订单
+		goodsService.reduceBuyCount(goods,buyCount);
+		//order_info maiosha_order
+		return orderService.createStockOrder(user, goods, buyCount);
+	}
 	
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>登录</title>
+    <title>注册</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <!-- jquery -->
@@ -9,7 +9,7 @@
     <!-- bootstrap -->
     <link rel="stylesheet" type="text/css" th:href="@{/bootstrap/css/bootstrap.min.css}"/>
 
-    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/register.css}"/>
 
     <style>
         .form-control{
@@ -83,10 +83,11 @@ function doRegister() {
             nickname:$("#nickname").val()
         },
         success:function(data){
-            layer.closeAll();
+            // layer.closeAll();
             if(data.code == 0){
-                layer.msg("注册成功");
-                window.location.href="/login/to_login";
+                layer.msg("注册成功",{time:1000},function(){
+                    window.location.href="/login/to_login";
+                });
             }else{
                 layer.msg(data.msg);
             }

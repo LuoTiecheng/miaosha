@@ -11,36 +11,37 @@
 
     <link rel="stylesheet" type="text/css" th:href="@{/css/goods.css}"/>
 
-</head>
+    <!--<style>-->
+        <!--body{-->
+            <!--background: url("/img/bg1.png") no-repeat top center fixed;-->
+            <!--background-size: 100%;-->
+        <!--}-->
+    <!--</style>-->
 
-<!--<style>-->
-    <!--body{-->
-        <!--background: url("/img/bg1.png") no-repeat top center fixed;-->
-        <!--background-size: 100%;-->
-    <!--}-->
-<!--</style>-->
+</head>
 <body>
 <div class="seckill_content">
-    <div class="title"><h2>秒杀商品列表</h2></div>
+    <div class="title"><h2>商品列表</h2></div>
     <div class="all_seckill_goods">
                 <div class="seckill_goods" th:each="goods,goodsStat : ${goodsList}">
-            <h4  th:text="${goods.goodsName}"></h4>
+            <h4 th:text="${goods.goodsName}"></h4>
             <img th:src="@{${goods.goodsImg}}" width="250"/>
             <br/><br/>
             <div class="seckill_price">
                 <p th:text="${goods.goodsTitle}"></p>
                 <p>
-                    <span class="price1" th:text="${goods.miaoshaPrice}+'元  '"></span>
-                    <del><span class="price2" th:text="${goods.goodsPrice}+'元'"></span></del>
+                    <span class="price1" th:text="${goods.goodsPrice}+'元  '"></span>
+                   <!--  <del><span class="price2" th:text="${goods.goodsPrice}+'元'"></span></del> -->
                 </p>
-                <a th:href="'/goods/to_detail/'+${goods.id}">
+                <a th:href="'/normal/normal_buy/'+${goods.id}">
                     <button class="btn btn-default" type="submit">进入详情页...</button>
                 </a>
 
             </div>
         </div>
     </div>
-
+    <div ><a href="/goods/to_list">跳楼大减价,限时秒杀大促活动!!!</a></div>
+    <br/><br/>
     <div ><a href="/login/to_login">退出登录</a></div>
 </div>
 </body>

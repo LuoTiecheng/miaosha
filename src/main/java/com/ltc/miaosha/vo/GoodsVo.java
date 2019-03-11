@@ -2,8 +2,9 @@ package com.ltc.miaosha.vo;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ltc.miaosha.domain.Goods;
-
+@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 public class GoodsVo extends Goods{
 	private Double miaoshaPrice;
 	private Integer stockCount;

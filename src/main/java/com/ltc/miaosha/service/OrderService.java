@@ -44,5 +44,21 @@ public class OrderService {
 		orderDao.insertMiaoshaOrder(miaoshaOrder);
 		return orderInfo;
 	}
+
+	@Transactional
+	public OrderInfo createStockOrder(MiaoshaUser user, GoodsVo goods,Integer buyCount) {
+		OrderInfo orderInfo = new OrderInfo();
+		orderInfo.setCreateDate(new Date());
+		orderInfo.setDeliveryAddrId(0L);
+		orderInfo.setGoodsCount(buyCount);
+		orderInfo.setGoodsId(goods.getId());
+		orderInfo.setGoodsName(goods.getGoodsName());
+		orderInfo.setGoodsPrice(goods.getGoodsPrice()*buyCount);
+		orderInfo.setOrderChannel(1);
+		orderInfo.setStatus(0);
+		orderInfo.setUserId(user.getId());
+		long orderId = orderDao.insert(orderInfo);
+		return orderInfo;
+	}
 	
 }

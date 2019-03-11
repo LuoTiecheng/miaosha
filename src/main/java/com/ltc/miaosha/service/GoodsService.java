@@ -2,6 +2,7 @@ package com.ltc.miaosha.service;
 
 import java.util.List;
 
+import com.ltc.miaosha.domain.Goods;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,14 @@ public class GoodsService {
 	public void reduceStock(GoodsVo goods) {
 		MiaoshaGoods g = new MiaoshaGoods();
 		g.setGoodsId(goods.getId());
-		goodsDao.reduceStock(g);
+		goodsDao.reduceMiaoshaStock(g);
+		goodsDao.reduceStock(g.getGoodsId(),1);
+	}
+
+	public void reduceBuyCount(GoodsVo goods,Integer buyCount){
+		MiaoshaGoods g = new MiaoshaGoods();
+		g.setGoodsId(goods.getId());
+		goodsDao.reduceStock(g.getGoodsId(),buyCount);
 	}
 	
 	

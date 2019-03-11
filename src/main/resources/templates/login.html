@@ -85,8 +85,10 @@
             success:function(data){
                 layer.closeAll();
                 if(data.code == 0){
-                    layer.msg("登陆成功");
-                    window.location.href="/goods/to_list";
+                    layer.msg("登陆成功",{time:1000},function(){
+                        window.location.href="/normal/to_list";
+                    });
+
                 }else{
                     layer.msg(data.msg);
                 }

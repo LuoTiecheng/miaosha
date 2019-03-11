@@ -62,4 +62,25 @@ public class MiaoshaController {
     	model.addAttribute("goods", goods);
         return "order_detail";
     }
+
+	@RequestMapping("/normal_buy")
+	public String normalBuy(Model model,MiaoshaUser user,
+					   @RequestParam("goodsId")long goodsId,@RequestParam("buyCount")Integer buyCount) {
+		model.addAttribute("user", user);
+		if(user == null) {
+			return "login";
+		}
+		//判断库存
+		GoodsVo goods = goodsService.getGoodsVoByGoodsId(goodsId);
+		int stock = goods.getGoodsStock();
+		if(stock <= buyCount) {
+			model.addAttribute("errmsg", CodeMsg.STOCK_OVER.getMsg());
+			return "miaosha_fail";
+		}
+		//减库存 下订单 写入秒杀订单
+		OrderInfo orderInfo = miaoshaService.normalBuy(user, goods,buyCount);
+		model.addAttribute("orderInfo", orderInfo);
+		model.addAttribute("goods", goods);
+		return "order_detail";
+	}
 }

@@ -9,6 +9,13 @@
     <link rel="stylesheet" type="text/css" th:href="@{/bootstrap/css/bootstrap.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/detail.css}"/>
 
+    <!--<style>-->
+        <!--body{-->
+            <!--background: url("/img/bg1.png") no-repeat top center fixed;-->
+            <!--background-size: 100%;-->
+        <!--}-->
+    <!--</style>-->
+
 </head>
 <body>
 
@@ -16,6 +23,7 @@
 <div class="top">
     <span th:if="${user == null}"> 您还没有登录，请登陆后再操作</span>
     <span th:if="${user != null}"> <span th:text="'欢迎您 '+${user.nickname}"></span></span>
+    <span> <a href="/login/to_login">退出登录</a></span>
     <!--<span>没有收货地址的提示。。。</span>-->
 </div>
 <div class="goods">
@@ -56,8 +64,16 @@
                 <button class="btn btn-primary btn-block" type="submit" id="buyButton">马上抢...</button>
                 <input type="hidden" name="goodsId" th:value="${goods.id}"/>
             </form>
+            <div>
+                <p></p>
+                <a href="/goods/to_list" th:text="点击我返回秒杀列表页"></a>
+                <p></p>
+                <a href="/normal/to_list" th:text="点击我返回普通商品列表页"></a>
+            </div>
         </div>
     </div>
+
+    <div ></div>
 </div>
 
 </body>

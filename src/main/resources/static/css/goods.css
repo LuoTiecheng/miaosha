@@ -11,13 +11,13 @@
 }
 .seckill_content{
     width: 100%;
-    min-width: 800px;
+    min-width: 60%;
 }
 .seckill_content .title{
     width: 100%;
-    height: 55px;
+    height: 8%;
     text-align: center;
-    line-height: 55px;
+    line-height: 8%;
 }
 .all_seckill_goods{
     width: 100%;
@@ -25,10 +25,10 @@
 
 }
 .all_seckill_goods .seckill_goods{
-    width: 260px;
+    width: 20%;
     height:auto;
     float: left;
-    margin: 20px;
+    margin: 2%;
 }
 .all_seckill_goods .seckill_goods h4{
     text-align: center;
