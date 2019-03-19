@@ -1,6 +1,5 @@
 package com.ltc.miaosha.controller;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,10 +49,12 @@ public class GoodsController {
     	long now = System.currentTimeMillis();
     	int miaoshaStatus = 0;
     	int remainSeconds = 0;
-    	if(now < startAt ) {//秒杀还没开始，倒计时
+		//秒杀还没开始，倒计时
+    	if(now < startAt ) {
     		miaoshaStatus = 0;
     		remainSeconds = (int)((startAt - now )/1000);
-    	}else  if(now > endAt){//秒杀已经结束
+    	}else  if(now > endAt){
+    		//秒杀已经结束
     		miaoshaStatus = 2;
     		remainSeconds = -1;
     	}else {//秒杀进行中
