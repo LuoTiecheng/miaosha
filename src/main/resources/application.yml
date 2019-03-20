@@ -7,7 +7,7 @@ spring:
     url: jdbc:mysql://47.106.74.64:3306/miaosha?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
     password: 123456
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
 
   rabbitmq:
@@ -26,9 +26,7 @@ spring:
     template:
        retry:
          enabled: true
-         initial-interval: 1000
          max-attempts: 3
-         max-interval: 10000
          multiplier: 1.0
 
 
