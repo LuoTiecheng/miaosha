@@ -101,7 +101,7 @@ public class RedisService {
 		 }
 	}
 	
-	private <T> String beanToString(T value) {
+	public static <T> String beanToString(T value) {
 		if(value == null) {
 			return null;
 		}
