@@ -14,10 +14,10 @@ import javax.annotation.Resource;
 
 @Service
 public class GoodsService {
-	
+
 	@Resource
 	GoodsDao goodsDao;
-	
+
 	public List<GoodsVo> listGoodsVo(){
 		return goodsDao.listGoodsVo();
 	}
@@ -26,17 +26,29 @@ public class GoodsService {
 		return goodsDao.getGoodsVoByGoodsId(goodsId);
 	}
 
-	public void reduceStock(GoodsVo goods) {
+	public boolean reduceStock(GoodsVo goods) {
 		MiaoshaGoods g = new MiaoshaGoods();
 		g.setGoodsId(goods.getId());
-		goodsDao.reduceMiaoshaStock(g);
-		goodsDao.reduceStock(g.getGoodsId(),1);
+		int ret = goodsDao.reduceStock(g);
+		return ret > 0;
 	}
+
+	public void resetStock(List<GoodsVo> goodsList) {
+		for(GoodsVo goods : goodsList ) {
+			MiaoshaGoods g = new MiaoshaGoods();
+			g.setGoodsId(goods.getId());
+			g.setStockCount(goods.getStockCount());
+			goodsDao.resetStock(g);
+		}
+	}
+
+
+
 
 	public void reduceBuyCount(GoodsVo goods,Integer buyCount){
 		MiaoshaGoods g = new MiaoshaGoods();
 		g.setGoodsId(goods.getId());
-		goodsDao.reduceStock(g.getGoodsId(),buyCount);
+		goodsDao.reduceNormalStock(g.getGoodsId(),buyCount);
 	}
 	
 	

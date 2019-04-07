@@ -50,7 +50,7 @@ public class SampleController {
 		sender.send("hello,imooc");
         return Result.success("Hello，world");
     }
-	
+
 //    @RequestMapping("/hello")
 //    @ResponseBody
 //    public Result<String> home() {
