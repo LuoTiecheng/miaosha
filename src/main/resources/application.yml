@@ -1,7 +1,3 @@
-#spring:
-#   profiles:
-#        active:dev
-
 spring:
   datasource:
     url: jdbc:mysql://47.106.74.64:3306/miaosha?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
@@ -9,6 +5,13 @@ spring:
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
+    tomcat:
+      max-active: 1000
+      initial-size: 100
+      max-wait: 60000
+      min-idle: 500
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
 
   rabbitmq:
     host: 47.106.74.64
@@ -38,8 +41,8 @@ mybatis:
 redis:
   host: 47.106.74.64
   port: 6379
-  timeout: 3
+  timeout: 10
   password: yourpassword
-  poolMaxTotal: 10
-  poolMaxIdle: 10
-  poolMaxWait: 3
+  poolMaxTotal: 1000
+  poolMaxIdle: 1000
+  poolMaxWait: 500
