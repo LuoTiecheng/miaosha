@@ -2,29 +2,28 @@ package com.ltc.miaosha.controller;
 
 import com.ltc.miaosha.rabbitmq.MQSender;
 import com.ltc.miaosha.rabbitmq.MiaoshaMessage;
-import com.ltc.miaosha.redis.GoodsKey;
-import com.ltc.miaosha.redis.MiaoshaKey;
-import com.ltc.miaosha.redis.OrderKey;
+import com.ltc.miaosha.redis.*;
 import com.ltc.miaosha.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import com.ltc.miaosha.domain.MiaoshaOrder;
 import com.ltc.miaosha.domain.MiaoshaUser;
 import com.ltc.miaosha.domain.OrderInfo;
-import com.ltc.miaosha.redis.RedisService;
 import com.ltc.miaosha.result.CodeMsg;
 import com.ltc.miaosha.service.GoodsService;
 import com.ltc.miaosha.service.MiaoshaService;
 import com.ltc.miaosha.service.MiaoshaUserService;
 import com.ltc.miaosha.service.OrderService;
 import com.ltc.miaosha.vo.GoodsVo;
-import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.awt.image.BufferedImage;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.List;
 
@@ -86,13 +85,19 @@ public class MiaoshaController {
 	 * 5000 * 10
 	 * QPS: 2114
 	 * */
-	@RequestMapping(value="/do_miaosha", method=RequestMethod.POST)
+	@RequestMapping(value="/{path}/do_miaosha", method=RequestMethod.POST)
 	@ResponseBody
 	public Result<Integer> miaosha(Model model,MiaoshaUser user,
-								   @RequestParam("goodsId")long goodsId) {
+								   @RequestParam("goodsId")long goodsId,
+								   @PathVariable("path") String path) {
 		model.addAttribute("user", user);
 		if(user == null) {
 			return Result.error(CodeMsg.SESSION_ERROR);
+		}
+		//验证path
+		boolean check = miaoshaService.checkPath(user, goodsId, path);
+		if(!check){
+			return Result.error(CodeMsg.REQUEST_ILLEGAL);
 		}
 		//内存标记，减少redis访问
 		boolean over = localOverMap.get(goodsId);
@@ -149,6 +154,57 @@ public class MiaoshaController {
 		}
 		long result  =miaoshaService.getMiaoshaResult(user.getId(), goodsId);
 		return Result.success(result);
+	}
+
+
+	@RequestMapping(value="/path", method=RequestMethod.GET)
+	@ResponseBody
+	public Result<String> getMiaoshaPath(HttpServletRequest request, MiaoshaUser user,
+										 @RequestParam("goodsId")long goodsId,
+										 @RequestParam(value="verifyCode", defaultValue="0")int verifyCode
+	) {
+		if(user == null) {
+			return Result.error(CodeMsg.SESSION_ERROR);
+		}
+		//查询访问的次数
+		String uri = request.getRequestURI();
+		String key = uri +"_"+ user.getId();
+		Integer count = redisService.get(AccessKey.access,key,Integer.class);
+		if(count==null){
+			redisService.set(AccessKey.access,key,1);
+		}else if(count<5) {
+			redisService.incr(AccessKey.access, key);
+		}else{
+			return Result.error(CodeMsg.ACCESS_LIMIT_REACHED);
+		}
+			boolean check = miaoshaService.checkVerifyCode(user, goodsId, verifyCode);
+		if(!check) {
+			return Result.error(CodeMsg.REQUEST_ILLEGAL);
+		}
+		String path  =miaoshaService.createMiaoshaPath(user, goodsId);
+		return Result.success(path);
+	}
+
+
+	@RequestMapping(value="/verifyCode", method=RequestMethod.GET)
+	@ResponseBody
+	public Result<String> getMiaoshaVerifyCod(HttpServletResponse response, MiaoshaUser user,
+											  @RequestParam("goodsId")long goodsId) {
+		if(user == null) {
+			return Result.error(CodeMsg.SESSION_ERROR);
+		}
+		try {
+			System.out.println(goodsId+"hahahahah");
+			BufferedImage image  = miaoshaService.createVerifyCode(user, goodsId);
+			OutputStream out = response.getOutputStream();
+			ImageIO.write(image, "JPEG", out);
+			out.flush();
+			out.close();
+			return null;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return Result.error(CodeMsg.MIAOSHA_FAIL);
+		}
 	}
 
 	@RequestMapping("/normal_buy")
