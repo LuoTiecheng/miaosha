@@ -194,7 +194,6 @@ public class MiaoshaController {
 			return Result.error(CodeMsg.SESSION_ERROR);
 		}
 		try {
-			System.out.println(goodsId+"hahahahah");
 			BufferedImage image  = miaoshaService.createVerifyCode(user, goodsId);
 			OutputStream out = response.getOutputStream();
 			ImageIO.write(image, "JPEG", out);
