@@ -6,6 +6,7 @@ import com.ltc.miaosha.redis.GoodsKey;
 import com.ltc.miaosha.redis.MiaoshaKey;
 import com.ltc.miaosha.redis.OrderKey;
 import com.ltc.miaosha.result.Result;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,7 +31,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/miaosha")
-public class MiaoshaController {
+public class MiaoshaController implements InitializingBean {
 
 	@Autowired
 	MiaoshaUserService userService;
