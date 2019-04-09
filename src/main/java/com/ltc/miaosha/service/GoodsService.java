@@ -33,6 +33,12 @@ public class GoodsService {
 		return ret > 0;
 	}
 
+	public void ordinaryReduceStock(GoodsVo goods) {
+		MiaoshaGoods g = new MiaoshaGoods();
+		g.setGoodsId(goods.getId());
+		goodsDao.reduceMiaoshaStock(g);
+	}
+
 	public void resetStock(List<GoodsVo> goodsList) {
 		for(GoodsVo goods : goodsList ) {
 			MiaoshaGoods g = new MiaoshaGoods();

@@ -32,4 +32,6 @@ public interface GoodsDao {
 	@Update("update goods set goods_stock = goods_stock - #{buyCount} where id = #{goodsId}")
 	public int reduceNormalStock(@Param("goodsId") Long goodsId,@Param("buyCount") Integer buyCount);
 
+	@Update("update miaosha_goods set stock_count = stock_count - 1 where goods_id = #{goodsId}")
+	public void reduceMiaoshaStock(MiaoshaGoods g);
 }

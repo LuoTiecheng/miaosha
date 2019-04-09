@@ -39,6 +39,15 @@ public class MiaoshaService {
 		}
 	}
 
+	@Transactional
+	public OrderInfo ordinaryMiaosha(MiaoshaUser user, GoodsVo goods) {
+		//减库存 下订单 写入秒杀订单
+		goodsService.ordinaryReduceStock(goods);
+		//order_info maiosha_order
+		return orderService.createOrder(user, goods);
+	}
+
+
 	public long getMiaoshaResult(Long userId, long goodsId) {
 		MiaoshaOrder order = orderService.getMiaoshaOrderByUserIdGoodsId(userId, goodsId);
 		if(order != null) {//秒杀成功
