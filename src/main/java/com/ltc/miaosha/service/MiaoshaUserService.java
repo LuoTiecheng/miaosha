@@ -19,6 +19,7 @@ import com.ltc.miaosha.util.MD5Util;
 import com.ltc.miaosha.util.UUIDUtil;
 import com.ltc.miaosha.vo.LoginVo;
 
+import java.util.List;
 import java.util.Random;
 
 @Service
@@ -48,6 +49,11 @@ public class MiaoshaUserService {
 			addCookie(response, token, user);
 		}
 		return user;
+	}
+
+	public List<MiaoshaUser> getAll(){
+		List<MiaoshaUser> userList = miaoshaUserDao.getAll();
+		return userList;
 	}
 	
 

@@ -1,6 +1,7 @@
 package com.ltc.miaosha.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,7 @@ public class OrderService {
 	public OrderInfo createOrder(MiaoshaUser user, GoodsVo goods) {
 		OrderInfo orderInfo = new OrderInfo();
 		orderInfo.setCreateDate(new Date());
-		orderInfo.setDeliveryAddrId(0L);
+		orderInfo.setDeliveryAddrId("空");
 		orderInfo.setGoodsCount(1);
 		orderInfo.setGoodsId(goods.getId());
 		orderInfo.setGoodsName(goods.getGoodsName());
@@ -55,12 +56,19 @@ public class OrderService {
 		orderDao.deleteMiaoshaOrders();
 	}
 
+	public void updateOrder(long orderId, String address){
+		orderDao.updateOrder(orderId,address);
+	}
+
+	public List<OrderInfo> getAll(){
+		return orderDao.getAllOrder();
+	}
 
 	@Transactional
 	public OrderInfo createStockOrder(MiaoshaUser user, GoodsVo goods,Integer buyCount) {
 		OrderInfo orderInfo = new OrderInfo();
 		orderInfo.setCreateDate(new Date());
-		orderInfo.setDeliveryAddrId(0L);
+		orderInfo.setDeliveryAddrId("空");
 		orderInfo.setGoodsCount(buyCount);
 		orderInfo.setGoodsId(goods.getId());
 		orderInfo.setGoodsName(goods.getGoodsName());

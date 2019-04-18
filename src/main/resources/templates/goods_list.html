@@ -11,6 +11,11 @@
 
     <link rel="stylesheet" type="text/css" th:href="@{/css/goods.css}"/>
 
+
+    <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <script type="text/javascript" src="/js/index.js" id="cb"></script>
+
 </head>
 
 <!--<style>-->
@@ -20,12 +25,43 @@
     <!--}-->
 <!--</style>-->
 <body>
+<div id="header">
+    <div class="container hd-container clear">
+        <h1 class="hd-logo">
+            <a href=""><img width="240px" height="130px" src="/img/timg.jfif" title="商城tmall.com" alt="tmall"></a>
+        </h1>
+        <div class="hd-extra form">
+            <div class="hd-search">
+                <form method="post" action="#" id="search">
+                    <fieldset>
+                        <legend>商城内搜索</legend>
+                        <input type="text" name="search-box" value="iphone xr" title="请输入搜索内容">
+                        <input type="submit" name="search-btn" value="搜索">
+                    </fieldset>
+                </form>
+                <ul class="hd-hot-key">
+                    <li><a href="#">沙滩裙</a></li>
+                    <li class="key-highlight"><a href="#">电风扇</a></li>
+                    <li><a href="#">短裤男</a></li>
+                    <li class="key-highlight"><a href="#">凉鞋</a></li>
+                    <li><a href="#">泳衣</a></li>
+                    <li class="key-highlight"><a href="#">伞</a></li>
+                    <li><a href="#">蚊帐</a></li>
+                    <li class="key-highlight"><a href="#">空调</a></li>
+
+                </ul>
+            </div>
+            <ul class="search-tip">
+            </ul>
+        </div>
+    </div>
+</div><!-- end header -->
+
 <div class="seckill_content">
-    <div class="title"><h2>秒杀商品列表</h2></div>
     <div class="all_seckill_goods">
                 <div class="seckill_goods" th:each="goods,goodsStat : ${goodsList}">
             <h4  th:text="${goods.goodsName}"></h4>
-            <img th:src="@{${goods.goodsImg}}" width="250"/>
+            <img th:src="@{${goods.goodsImg}}" width="350"/>
             <br/><br/>
             <div class="seckill_price">
                 <p th:text="${goods.goodsTitle}"></p>

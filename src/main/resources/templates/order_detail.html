@@ -30,6 +30,10 @@
         <td>商品图片</td>  
         <td colspan="2"><img th:src="@{${goods.goodsImg}}" width="200" height="200" /></td>  
      </tr>
+      <tr>
+          <td>订单序号</td>
+          <td colspan="2" id="orderId" th:text="${orderInfo.id}"></td>
+      </tr>
       <tr>  
         <td>订单价格</td>  
         <td colspan="2" th:text="${orderInfo.goodsPrice}"></td>  
@@ -42,29 +46,24 @@
       <tr>
           <td>收货人</td>
           <td colspan="4">
-              <form id="bbForm" method="post">
-                  <input type="text" name="address" />
-              </form>
+                  <input type="text" name="address" id="person"/>
           </td>
      </tr>
       <tr>
           <td>电话号码</td>
           <td  colspan="4">
-              <form id="aaForm" method="post" >
-                  <input type="text" name = "address" />
-              </form>
+                  <input type="text" name = "address" id="phone" />
           </td>
       </tr>
      <tr>
      		<td>收货地址</td>  
         	<td colspan="4">
-                <form id="addressForm" method="post" >
-                    <input  style="width: 330px" type="text"  name = "address" />
-                </form>
+                    <input  style="width: 330px" type="text"  name = "address" id="address"/>
+
             </td>
      </tr>
      <tr>
-         <td>支付功能需要微信公众号商户资质，暂无法开发，点击此返回列表页</td>
+         <td></td>
          <!--<td><a href="/normal/to_list" th:text="点击我返回普通商品列表页"></a></td>-->
          <td><a href="/goods/to_list" th:text="点击我返回秒杀列表页"></a></td>
      </tr>
@@ -79,7 +78,7 @@
               <span th:if="${orderInfo.status eq 5}">已完成</span>
           </td>
           <td>
-              <button class="btn btn-primary btn-block" type="submit" id="payButton">立即支付</button>
+              <button class="btn btn-primary btn-block" type="submit" id="payButton" onclick="save()">立即支付</button>
           </td>
       </tr>
   </table>
@@ -87,3 +86,25 @@
 
 </body>
 </html>
+<script>
+    function save() {
+       var person= document.getElementById("person").value;
+       var phone = document.getElementById("phone").value;
+       var address = document.getElementById("address").value;
+       console.log($("#orderId").text());
+        $.ajax({
+            url: "/order/save",
+            type: "GET",
+            data:{
+                orderId:$("#orderId").text(),
+                address:address,
+            },
+            success:function(data){
+                window.location.href="/success";
+            },
+            error:function(){
+            }
+        });
+
+    }
+</script>

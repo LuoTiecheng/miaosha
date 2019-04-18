@@ -36,6 +36,15 @@ public class GoodsController {
         return "goods_list";
     }
 
+	@RequestMapping("/getAll")
+	public String getAll(Model model,MiaoshaUser user) {
+		model.addAttribute("user", user);
+		//查询商品列表
+		List<GoodsVo> goodsList = goodsService.listGoodsVo();
+		model.addAttribute("goodsList", goodsList);
+		return "d";
+	}
+
     @RequestMapping("/to_detail/{goodsId}")
     public String detail(Model model,MiaoshaUser user,
     		@PathVariable("goodsId")long goodsId) {

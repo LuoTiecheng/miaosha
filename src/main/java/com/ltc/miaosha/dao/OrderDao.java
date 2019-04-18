@@ -1,9 +1,12 @@
 package com.ltc.miaosha.dao;
 
+import com.ltc.miaosha.domain.MiaoshaGoods;
 import org.apache.ibatis.annotations.*;
 
 import com.ltc.miaosha.domain.MiaoshaOrder;
 import com.ltc.miaosha.domain.OrderInfo;
+
+import java.util.List;
 
 @Mapper
 public interface OrderDao {
@@ -22,8 +25,15 @@ public interface OrderDao {
 	@Select("select id as id,user_id as userId,goods_id as goodsId,addr_id as deliveryAddrId,goods_name as goodsName,goods_count as goodsCount,goods_price as goodsPrice, order_channel as orderChannel,status as status , create_date as createDate,pay_date as payDate from order_info where id = #{orderId}")
 	public OrderInfo getOrderById(@Param("orderId") long orderId);
 
+	@Select("select id as id,user_id as userId,goods_id as goodsId,addr_id as deliveryAddrId,goods_name as goodsName,goods_count as goodsCount,goods_price as goodsPrice, order_channel as orderChannel,status as status , create_date as createDate,pay_date as payDate from order_info")
+	public List<OrderInfo> getAllOrder();
+
 	@Delete("delete from order_info")
 	public void deleteOrders();
+
+	@Update("update order_info set addr_id = #{address} where id = #{orderId}")
+	public int updateOrder(@Param("orderId") Long orderId,@Param("address") String address);
+
 
 	@Delete("delete from miaosha_order")
 	public void deleteMiaoshaOrders();

@@ -27,8 +27,9 @@ public class NormalProController {
 
     @Autowired
     GoodsService goodsService;
+    private final String string = "/to_list";
 
-    @RequestMapping("/to_list")
+    @RequestMapping(string)
     public String list(Model model, MiaoshaUser user) {
         model.addAttribute("user", user);
         //查询商品列表
@@ -43,6 +44,18 @@ public class NormalProController {
         model.addAttribute("user", user);
 
         GoodsVo goods = goodsService.getGoodsVoByGoodsId(goodsId);
+        model.addAttribute("goods", goods);
+
+
+        return "normal_detail";
+    }
+
+    @RequestMapping("/search_buy/{goodsName}")
+    public String searchDetail(Model model,MiaoshaUser user,
+                         @PathVariable("goodsName")String goodsName) {
+        model.addAttribute("user", user);
+
+        GoodsVo goods = goodsService.getGoodsVoByGoodsName(goodsName);
         model.addAttribute("goods", goods);
 
 
