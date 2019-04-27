@@ -67,7 +67,7 @@ Search.prototype = {
 			} else {
 				This.oSearchTip.style.display = 'block';
 			}
-			this.placeholder = 'iphone xr';
+			this.placeholder = '';
 			//取消事件的默认行为
 			if (ev.preventDefault) {
 				ev.preventDefault();
