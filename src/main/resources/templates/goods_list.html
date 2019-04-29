@@ -15,7 +15,21 @@
     <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
     <link rel="stylesheet" type="text/css" href="/css/main.css">
     <script type="text/javascript" src="/js/index.js" id="cb"></script>
-
+    <style>
+        .back {
+            width: 100%;
+            height: 244px;
+        }
+        .back>img {
+            width: 100%;
+            height: 100%;
+        }
+        .aaa {
+            width: 100%;
+            height: 393px;
+        }
+        h4.thicker {font-weight: 900;font-weight: bold}
+    </style>
 </head>
 
 <!--<style>-->
@@ -57,10 +71,14 @@
     </div>
 </div><!-- end header -->
 
+<div class="aaa">
+    <img src="/img/ms1.png" alt="">
+</div>
+
 <div class="seckill_content">
     <div class="all_seckill_goods">
                 <div class="seckill_goods" th:each="goods,goodsStat : ${goodsList}">
-            <h4  th:text="${goods.goodsName}"></h4>
+            <h4  class="thicker" th:text="${goods.goodsName}"></h4>
             <img th:src="@{${goods.goodsImg}}" width="350"/>
             <br/><br/>
             <div class="seckill_price">
@@ -78,6 +96,9 @@
     </div>
 
     <div ><a href="/login/to_login">退出登录</a></div>
+</div>
+<div class="back">
+    <img src="/img/dangdang.png" alt="">
 </div>
 </body>
 <!-- jquery-validator -->
