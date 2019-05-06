@@ -6,6 +6,7 @@ import lombok.Getter;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 /**
  * @Author: luotiecheng
@@ -23,6 +24,16 @@ public class RegisterVo {
 
     @NotNull
     private String nickname;
+
+    private Date registerDate;
+
+    public void setRegisterDate(Date registerDate){
+        this.registerDate = registerDate;
+    }
+
+    public Date getRegisterDate(){
+         return registerDate;
+    }
 
     public void setMobile(String mobile) {
         this.mobile = mobile;

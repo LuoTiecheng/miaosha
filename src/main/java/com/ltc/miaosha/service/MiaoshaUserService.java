@@ -19,6 +19,7 @@ import com.ltc.miaosha.util.MD5Util;
 import com.ltc.miaosha.util.UUIDUtil;
 import com.ltc.miaosha.vo.LoginVo;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -86,7 +87,7 @@ public class MiaoshaUserService {
 		 String mobile = registerVo.getMobile();
 		 String formPass = registerVo.getPassword();
 		 String nickname = registerVo.getNickname();
-
+         Date registerDate = registerVo.getRegisterDate();
 		 MiaoshaUser user = getById(Long.parseLong(mobile));
 		 if(user != null){
 		 	throw new GlobalException(CodeMsg.USER_EXIST);
@@ -95,7 +96,7 @@ public class MiaoshaUserService {
 		 int number = random.nextInt(10000000)+10000000;
 		 String salt = ""+number;
 		 String dbPass = MD5Util.formPassToDBPass(formPass,salt);
-		 miaoshaUserDao.insert(Long.parseLong(mobile),dbPass,nickname,salt);
+		 miaoshaUserDao.insert(Long.parseLong(mobile),dbPass,nickname,salt,registerDate);
          return true;
 	}
 	

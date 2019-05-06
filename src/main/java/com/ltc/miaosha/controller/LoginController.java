@@ -16,6 +16,8 @@ import com.ltc.miaosha.result.Result;
 import com.ltc.miaosha.service.MiaoshaUserService;
 import com.ltc.miaosha.vo.LoginVo;
 
+import java.util.Date;
+
 @Controller
 public class LoginController {
 
@@ -51,6 +53,7 @@ public class LoginController {
     public Result<Boolean> doRegister( @Valid RegisterVo registerVo) {
         log.info(registerVo.toString());
         //登录
+        registerVo.setRegisterDate(new Date());
         userService.register(registerVo);
         return Result.success(true);
     }
