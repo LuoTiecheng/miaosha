@@ -81,8 +81,8 @@ Search.prototype = {
 		form.setAttribute('data-active', 'true');
 		if (this.oSearchBox.value != '') {
 			var oScript = document.createElement('script');
-			oScript.src = 'https://suggest.taobao.com/sug?code=utf-8&q=' + this.oSearchBox.value + '&callback=searchCb';
-			oScriptCb.parentNode.insertBefore(oScript, oScriptCb);
+			// oScript.src = 'https://suggest.taobao.com/sug?code=utf-8&q=' + this.oSearchBox.value + '&callback=searchCb';
+			// oScriptCb.parentNode.insertBefore(oScript, oScriptCb);
 		} else {
 			this.oSearchTip.style.display = 'none';
 		}
@@ -141,26 +141,26 @@ function searchCb(data) {
 		var keyLen = searchBox.value.length;
 		var dataLen = data.result.length;
 
-		if (dataLen) {
-			searchTip.style.display = 'block';
+		// if (dataLen) {
+		// 	searchTip.style.display = 'block';
 
-			for (var i = 0; i < dataLen; i++) {
-				//从返回的数据中提取关键字
-				var key = data.result[i][0].substring(0, keyLen);
-				//从返回的数据中提取关键字后的其他智能提示信息
-				var keyTip = data.result[i][0].substring(keyLen);
-				//创建列表并指定链接地址以搜索宝贝
-				html += '<li><a target="_blank" href="https://list.tmall.com/search_product.htm?q=' + data.result[i][0] + '&type=p&vmarket="><strong class="keyword">' + key + '</strong><span class="key-tip">' + keyTip + '</span>' + '<span class="count">约' + data.result[i][1] + '个结果</span></a></li>';
-			}
-			//最后一项列表是搜索店铺
-			html += '<li><a target="_blank" href="https://list.tmall.com/search_product.htm?q=' + searchBox.value + '&type=p&style=w"><i class="iconfont shop-icon">&#xe627;</i>找<strong class="keyword">' + searchBox.value + '</strong>相关<span class="key-tip">店铺</span>';
-
-			searchTip.innerHTML = html;
-
-			searchTip.flag = false;
-		} else {
-			searchTip.style.display = 'none';
-		}
+		// 	for (var i = 0; i < dataLen; i++) {
+		// 		//从返回的数据中提取关键字
+		// 		var key = data.result[i][0].substring(0, keyLen);
+		// 		//从返回的数据中提取关键字后的其他智能提示信息
+		// 		var keyTip = data.result[i][0].substring(keyLen);
+		// 		//创建列表并指定链接地址以搜索宝贝
+		// 		html += '<li><a target="_blank" href="https://list.tmall.com/search_product.htm?q=' + data.result[i][0] + '&type=p&vmarket="><strong class="keyword">' + key + '</strong><span class="key-tip">' + keyTip + '</span>' + '<span class="count">约' + data.result[i][1] + '个结果</span></a></li>';
+		// 	}
+		// 	//最后一项列表是搜索店铺
+		// 	html += '<li><a target="_blank" href="https://list.tmall.com/search_product.htm?q=' + searchBox.value + '&type=p&style=w"><i class="iconfont shop-icon">&#xe627;</i>找<strong class="keyword">' + searchBox.value + '</strong>相关<span class="key-tip">店铺</span>';
+        //
+		// 	searchTip.innerHTML = html;
+        //
+		// 	searchTip.flag = false;
+		// } else {
+		// 	searchTip.style.display = 'none';
+		// }
 	}
 }
 // 搜索框对象结束
