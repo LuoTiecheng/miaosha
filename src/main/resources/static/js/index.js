@@ -100,7 +100,7 @@ Search.prototype = {
 		addHandler(This.oSearchBtn, 'click', function() {
 			console.log(This.oSearchBox.value);
             // window.location.href="/normal/normal_buy/" + This.oSearchBox.value;
-			This.oForm.action = 'http://localhost:8080/normal/search_buy/' + This.oSearchBox.value;
+			This.oForm.action = '/normal/search_buy/' + This.oSearchBox.value;
 		});
 	},
 	//document点击事件

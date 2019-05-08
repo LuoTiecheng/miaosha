@@ -94,7 +94,7 @@ public class MiaoshaService {
 		if(user == null || goodsId <=0) {
 			return null;
 		}
-		int width = 80;
+		int width = 100;
 		int height = 32;
 		//create the image
 		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
